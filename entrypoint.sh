@@ -73,8 +73,8 @@ elif [[ "$DST_TYPE" == "gitee" ]]; then
   DST_REPO_CREATE_API=https://gitee.com/api/v5/$DST_CREATE_URL_SUFFIX
   DST_REPO_LIST_API=https://gitee.com/api/v5/$DST_LIST_URL_SUFFIX
 else
-  echo "Unknown dst args, the `dst` should be `[github|gittee]/account`"
-  exit 1
+  echo "Unknown dst args, the `dst` should be `[github|gittee]/account`, but not quit"
+#  exit 1
 fi
 
 
@@ -89,16 +89,16 @@ function cd_src_repo
 
 function add_remote_repo
 {
-  # Auto create non-existing repo
-  has_repo=`curl $DST_REPO_LIST_API | jq '.[] | select(.full_name=="'$DST_ACCOUNT'/'$1'").name' | wc -l`
-  if [ $has_repo == 0 ]; then
-    if [[ "$DST_TYPE" == "github" ]]; then
-      curl -H "Authorization: token $2" --data '{"name":"'$1'"}' $DST_REPO_CREATE_API
-    elif [[ "$DST_TYPE" == "gitee" ]]; then
-      curl -X POST --header 'Content-Type: application/json;charset=UTF-8' $DST_REPO_CREATE_API -d '{"name": "'$1'","access_token": "'$2'"}'
-    fi
-  fi
-  git remote add $DST_TYPE git@$DST_TYPE.com:$DST_ACCOUNT/$1.git
+  # Auto create non-existing repo, but need to create it manually for Coding
+#  has_repo=`curl $DST_REPO_LIST_API | jq '.[] | select(.full_name=="'$DST_ACCOUNT'/'$1'").name' | wc -l`
+#  if [ $has_repo == 0 ]; then
+#    if [[ "$DST_TYPE" == "github" ]]; then
+#      curl -H "Authorization: token $2" --data '{"name":"'$1'"}' $DST_REPO_CREATE_API
+#    elif [[ "$DST_TYPE" == "gitee" ]]; then
+#      curl -X POST --header 'Content-Type: application/json;charset=UTF-8' $DST_REPO_CREATE_API -d '{"name": "'$1'","access_token": "'$2'"}'
+#    fi
+#  fi
+  git remote add $DST_TYPE git@e.coding.net:$DST_ACCOUNT/jingdlu/$1.git
 }
 
 function update_repo
