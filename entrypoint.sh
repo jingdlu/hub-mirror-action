@@ -98,7 +98,7 @@ function add_remote_repo
 #      curl -X POST --header 'Content-Type: application/json;charset=UTF-8' $DST_REPO_CREATE_API -d '{"name": "'$1'","access_token": "'$2'"}'
 #    fi
 #  fi
-  git remote add $DST_TYPE git@e.coding.net:$DST_ACCOUNT/jingdlu/$1.git
+  git remote add $DST_TYPE git@e.coding.net:$DST_ACCOUNT/$DST_ACCOUNT/$1.git
 }
 
 function update_repo
