@@ -61,7 +61,7 @@ else
 fi
 
 if [[ -z $STATIC_LIST ]]; then
-  SRC_REPOS=`curl $SRC_REPO_LIST_API | jq '.[] | .name' |  sed 's/"//g'`
+  SRC_REPOS=`curl '$SRC_REPO_LIST_API?per_page=100' | jq '.[] | .name' |  sed 's/"//g'`
 else
   SRC_REPOS=`echo $STATIC_LIST | tr ',' ' '`
 fi
